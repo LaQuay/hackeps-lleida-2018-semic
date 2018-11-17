@@ -115,6 +115,10 @@ def check_todo(file):
             file_output.write("Line " + str(i + 1) + ": 5 - TODO found in HTML code\n")
             errors = True
 
+        if "/* TODO:" in line:
+            file_output.write("Line " + str(i + 1) + ": 5 - TODO found in JS code\n")
+            errors = True
+
         if "// TODO:" in line:
             file_output.write("Line " + str(i + 1) + ": 5 - TODO found in JS code\n")
             errors = True
@@ -159,12 +163,42 @@ def check_blank_in_external_urls(file):
     return errors
 
 
+# Consideramos 'cargar js' como la carga de <script type='text/javascript'>
 def check_js(file):
     print("JS... ")
 
+    count = 0
+    for i, line in enumerate(file):
+        result = re.findall('<script(.*?)>', line)
+        for match in result:
+            match = match.replace("'", "\"")
+            if "type=\"text/javascript\"" in match:
+                count += 1
 
+    if count > 5:
+        file_output.write("Line 0: 7 - More than 5 .js scripts\n")
+        return True
+
+    return False
+
+
+# Consideramos 'cargar css' como la carga de <link rel="stylesheet">
 def check_css(file):
     print("CSS... ")
+
+    count = 0
+    for i, line in enumerate(file):
+        result = re.findall('<link(.*?)>', line)
+        for match in result:
+            match = match.replace("'", "\"")
+            if "rel=\"stylesheet\"" in match:
+                count += 1
+
+    if count > 5:
+        file_output.write("Line 0: 7 - More than 5 .css scripts\n")
+        return True
+
+    return False
 
 
 def check_links_404(file):
@@ -177,7 +211,7 @@ if __name__ == "__main__":
     now = datetime.datetime.now()
 
     file_output.write("File: " + file_input_ext + "\n")
-    file_output.write("Date: " + now.strftime("%Y-%m-%d %H:%M:%S") + "\n")
+    file_output.write("Date: " + now.strftime("%Y-%m-%d") + "\n")
     file_output.write("List of errors:" + "\n")
 
     if check_not_html_wrong_anidation(file_input_lines.copy()):
@@ -204,11 +238,11 @@ if __name__ == "__main__":
         print(" BLANK in EXTERNAL ERRORS")
         errors = True
 
-    if check_js(file_input):
+    if check_js(file_input_lines):
         print(" JS FAILS - ERRORS")
         errors = True
 
-    if check_css(file_input):
+    if check_css(file_input_lines):
         print(" CSS FAILS - ERRORS")
         errors = True
 

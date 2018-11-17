@@ -1,5 +1,5 @@
 File: reto3.html
-Date: 2018-11-17 19:21:18
+Date: 2018-11-17
 List of errors:
 Line 1225: 1 - <p> HTML wrong nesting
 Line 0: 4 - Sitemap.xml not found
@@ -10,3 +10,5 @@ Line 541: 6 - target='_blank' not found
 Line 1035: 6 - target='_blank' not found
 Line 1036: 6 - target='_blank' not found
 Line 1038: 6 - target='_blank' not found
+Line 0: 7 - More than 5 .js scripts
+Line 0: 7 - More than 5 .css scripts
