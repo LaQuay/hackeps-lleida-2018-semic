@@ -1,0 +1,6 @@
+File: reto3.html
+Date: 2018-11-17 17:32:09
+List of errors:
+Line 1225: 1 - <p> HTML wrong nesting
+Line 0: 3 - Google Analytics not found
+Line 0: 3 - Google TagManager not found
