@@ -38,3 +38,11 @@ def get_FAIL_google_tag_manager_2():
 
 def get_FAIL_google_tag_manager_3():
     return "<noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-'"
+
+
+def get_OK_sitemap():
+    return "<div>sitemap.xmlBienvenidos a la web de <span>SEMIC</span></div>"
+
+
+def get_FAIL_sitemap():
+    return "<div>Bienvenidos a la web de <span>SEMIC</span></div>"

@@ -90,7 +90,16 @@ def check_analytics(file):
 
 
 def check_sitemap(file):
-    print("H1 tags... ")
+    print("Sitemap... ")
+
+    # file = samples.get_OK_sitemap()
+    # file = samples.get_FAIL_sitemap()
+
+    if "sitemap.xml" not in file:
+        file_output.write("Line 0: 4 - Sitemap.xml not found\n")
+        return True
+
+    return False
 
 
 def check_todo(file):
