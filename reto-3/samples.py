@@ -63,3 +63,13 @@ def get_FAIL_JS_TODO():
     return list(["$(function(){",
                  "// TODO: Mode this to an external JS file",
                  "$('#subscribe_button').click(function() {"])
+
+
+def get_OK_blank_url():
+    return list([
+        "<p style=\"font-size:10px;\" ><strong>Finalidades</strong>: Enviarle ... electrónicos. <strong>Legitimación</strong>: Consentimiento del interesado. <strong>Destinatarios</strong>: Las previstas legalmente. <strong>Derechos</strong>: Puede, suprimir sus datos y demás derechos en <a href=\"mailto:lopd@semic.es\">lopd@semic.es</a>, como se explica en la Política de Privacidad. <strong>Información Adicional</strong>: Puede ampliar la información en el enlace de <a href=\"https://www.semic.es/es/aviso-legal\">Avisos Legales</a></p>"])
+
+
+def get_FAIL_blank_url():
+    return list([
+        "<p style=\"font-size:10px;\" ><strong>Finalidades</strong>: Enviarle ... electrónicos. <strong>Legitimación</strong>: Consentimiento del interesado. <strong>Destinatarios</strong>: Las previstas legalmente. <strong>Derechos</strong>: Puede, suprimir sus datos y demás derechos en <a href=\"mailto:lopd@semic.es\">lopd@semic.es</a>, como se explica en la Política de Privacidad. <strong>Información Adicional</strong>: Puede ampliar la información en el enlace de <a href=\"https://www.notsemic.es/es/aviso-legal\">Avisos Legales</a></p>"])

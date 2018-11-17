@@ -125,6 +125,39 @@ def check_todo(file):
 def check_blank_in_external_urls(file):
     print("URL externals... ")
 
+    # file = samples.get_OK_blank_url()
+    # file = samples.get_FAIL_blank_url()
+
+    errors = False
+    for i, line in enumerate(file):
+        result = re.findall('<a(.*?)>', line)
+        for match in result:
+            match = match.replace("'", "\"")
+
+            if 'href=' not in match:
+                continue
+
+            if 'href="tel:' in match:
+                continue
+
+            if 'href=""' in match:
+                continue
+
+            if 'href="#' in match:
+                continue
+
+            if 'href="/' in match:
+                continue
+
+            if 'mailto' in match:
+                continue
+
+            if "www.semic.es" not in match and "target=\"_blank\"" not in match:
+                file_output.write("Line " + str(i + 1) + ": 6 - target='_blank' not found\n")
+                errors = True
+
+    return errors
+
 
 def check_js(file):
     print("JS... ")
@@ -167,7 +200,7 @@ if __name__ == "__main__":
         print(" TODO ERRORS")
         errors = True
 
-    if check_blank_in_external_urls(file_input):
+    if check_blank_in_external_urls(file_input_lines):
         print(" BLANK in EXTERNAL ERRORS")
         errors = True
 

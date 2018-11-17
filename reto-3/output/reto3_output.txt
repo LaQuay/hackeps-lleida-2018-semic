@@ -1,8 +1,12 @@
 File: reto3.html
-Date: 2018-11-17 18:27:02
+Date: 2018-11-17 19:21:18
 List of errors:
 Line 1225: 1 - <p> HTML wrong nesting
 Line 0: 4 - Sitemap.xml not found
 Line 858: 5 - TODO found in HTML code
 Line 930: 5 - TODO found in HTML code
 Line 1081: 5 - TODO found in JS code
+Line 541: 6 - target='_blank' not found
+Line 1035: 6 - target='_blank' not found
+Line 1036: 6 - target='_blank' not found
+Line 1038: 6 - target='_blank' not found
