@@ -1,6 +1,8 @@
 import re
 import datetime
 
+import requests
+
 from Stack import Stack
 import samples
 
@@ -202,7 +204,46 @@ def check_css(file):
 
 
 def check_links_404(file):
-    print("404... ")
+    print("CHECK URLs 404... ")
+
+    # file = samples.get_OK_URL()
+    file = samples.get_FAIL_URL()
+
+    errors = False
+    for i, line in enumerate(file):
+        result = re.findall('<a(.*?)>', line)
+        for match in result:
+            match = match.replace("'", "\"").strip()
+
+            if 'href=' not in match:
+                continue
+
+            if 'href="tel:' in match:
+                continue
+
+            if 'href=""' in match:
+                continue
+
+            # No es posible comprobar una ruta # sin saber el base_url
+            if 'href="#' in match:
+                continue
+
+            if 'mailto' in match:
+                continue
+
+            url = re.findall('href="(.*?)"', match)[0]
+
+            if 'href="/' in match:
+                url = "https://www.semic.es" + url
+
+            r = requests.get(url)
+            status_code = r.status_code
+
+            if status_code == 404:
+                file_output.write("Line " + str(i + 1) + ": 9 - URL returning 404 NOT FOUND " + url + "\n")
+                errors = True
+
+    return errors
 
 
 if __name__ == "__main__":
@@ -246,6 +287,6 @@ if __name__ == "__main__":
         print(" CSS FAILS - ERRORS")
         errors = True
 
-    if check_links_404(file_input):
+    if check_links_404(file_input_lines):
         print(" SOME LINK IS 404 - ERRORS")
         errors = True

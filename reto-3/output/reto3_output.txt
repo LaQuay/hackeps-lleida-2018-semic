@@ -12,3 +12,5 @@ Line 1036: 6 - target='_blank' not found
 Line 1038: 6 - target='_blank' not found
 Line 0: 7 - More than 5 .js scripts
 Line 0: 7 - More than 5 .css scripts
+Line 1: 9 - URL returning 404 NOT FOUND https://www.semic.es/es/aviso-legalnoexiste
+Line 2: 9 - URL returning 404 NOT FOUND https://www.semic.es/es/aviso-legalnoexiste2
