@@ -46,3 +46,20 @@ def get_OK_sitemap():
 
 def get_FAIL_sitemap():
     return "<div>Bienvenidos a la web de <span>SEMIC</span></div>"
+
+
+def get_OK_TODO():
+    return list(["<div>Bienvenidos a la web de <span>SEMIC</span></div>",
+                 "<div>Bienvenidos a la web de <span>SEMIC</span></div>"])
+
+
+def get_FAIL_HTML_TODO():
+    return list(["<div>Bienvenidos a la web de <span>SEMIC</span></div>",
+                 "<!-- TODO: Move this to an external JS file -->",
+                 "<div>Bienvenidos a la web de <span>SEMIC</div></span>"])
+
+
+def get_FAIL_JS_TODO():
+    return list(["$(function(){",
+                 "// TODO: Mode this to an external JS file",
+                 "$('#subscribe_button').click(function() {"])

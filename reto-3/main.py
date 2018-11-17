@@ -105,6 +105,22 @@ def check_sitemap(file):
 def check_todo(file):
     print("TODO messages... ")
 
+    # file = samples.get_OK_TODO()
+    # file = samples.get_FAIL_HTML_TODO()
+    # file = samples.get_FAIL_JS_TODO()
+
+    errors = False
+    for i, line in enumerate(file):
+        if "<!-- TODO:" in line:
+            file_output.write("Line " + str(i + 1) + ": 5 - TODO found in HTML code\n")
+            errors = True
+
+        if "// TODO:" in line:
+            file_output.write("Line " + str(i + 1) + ": 5 - TODO found in JS code\n")
+            errors = True
+
+    return errors
+
 
 def check_blank_in_external_urls(file):
     print("URL externals... ")
@@ -147,7 +163,7 @@ if __name__ == "__main__":
         print(" SITEMAP ERRORS")
         errors = True
 
-    if check_todo(file_input):
+    if check_todo(file_input_lines):
         print(" TODO ERRORS")
         errors = True
 
