@@ -8,6 +8,22 @@ def get_FAIL_html_nesting():
                  "<div>Bienvenidos a la web de <span>SEMIC</div></span>"])
 
 
+def get_OK_h1_nesting_1():
+    return "<div><h1>Bienvenidos a la web de <span>SEMIC</span></h1></div>"
+
+
+def get_OK_h1_nesting_2():
+    return "<div><article><h1>Bienvenidos a la web de <span>SEMIC</span></h1><section><h1>HOLA</h1></section><section><h1>HOLA2</h1></section></article></div>"
+
+
+def get_FAIL_h1_nesting_1():
+    return "<div><h1>Bienvenidos a la web de <h1><span>SEMIC</span></h1></h1></div><div><h1>Bienvenidos a la web de <span>SEMIC</span></h1></div>"
+
+
+def get_FAIL_h1_nesting_2():
+    return "<div><article><h1>Bienvenidos a la web de <span>SEMIC</span></h1><section><h1>HOLA</h1><h1>HOLA</h1></section><section><h1>HOLA2</h1></section></article><article><h1>Bienvenidos a la web de <span>SEMIC</span></h1><section><h1>HOLA</h1><h1>HOLA</h1></section><section><h1>HOLA2</h1></section></article></div>"
+
+
 def get_OK_google_analytics():
     return "window['ga-disable-UA-6091890-1'] = true;"
 

@@ -22,8 +22,8 @@ file_output = open(output_file, "w")
 def check_not_html_wrong_anidation(file):
     print("HTML anidation... ")
 
-    # file = samples.get_OK_html_anidation()
-    # file = samples.get_FAIL_html_anidation()
+    # file = samples.get_OK_html_nesting()
+    # file = samples.get_FAIL_html_nesting()
 
     s = Stack()
     sN = Stack()
@@ -51,7 +51,7 @@ def check_not_html_wrong_anidation(file):
                 sN.pop()
 
     if not s.is_empty():
-        file_output.write("Line " + str(sN.pop() + 1) + ": 1 - " + s.pop() + " HTML wrong nesting\n")
+        file_output.write("Line " + str(sN.peek() + 1) + ": 1 - " + s.peek() + " HTML wrong nesting\n")
         return True
 
     return False
@@ -59,6 +59,35 @@ def check_not_html_wrong_anidation(file):
 
 def check_h1_tags(file):
     print("H1 tags... ")
+
+    # file = samples.get_OK_h1_nesting_1()
+    # file = samples.get_OK_h1_nesting_2()
+    # file = samples.get_FAIL_h1_nesting_1()
+    # file = samples.get_FAIL_h1_nesting_2()
+
+    file = (file.replace('<', ' <')
+            .replace('>', '> '))
+
+    errors = False
+    inside_section = re.findall('<section[a-zA-Z\-\s\"=]*>.*</section>', file, re.DOTALL)
+    for case in inside_section:
+        if case.count("<h1>") > case.count("<section>"):
+            file_output.write("Line 0: " + "More than one <h1> allowed inside section tags\n")
+            errors = True
+
+    inside_article = re.findall('<article[a-zA-Z\-\s\"=]*>.*</article>', file, re.DOTALL)
+    for item in inside_article:
+        without_section = re.sub('<section>.+</section>', '', item)
+        if without_section.count("<h1>") > 1:
+            file_output.write("Line 0: " + "More than one <h1> allowed inside article tags\n")
+            errors = True
+
+    inside_divs = re.sub('<article[a-zA-Z\-\s\"=]*>.*</article>', '', file, re.DOTALL)
+    if inside_divs.count("<h1>") > 1:
+        file_output.write("Line 0: " + "More than one <h1> allowed inside div tags\n")
+        errors = True
+
+    return errors
 
 
 def check_analytics(file):
@@ -165,7 +194,6 @@ def check_blank_in_external_urls(file):
     return errors
 
 
-# Consideramos 'cargar js' como la carga de <script type='text/javascript'>
 def check_js(file):
     print("JS... ")
 
@@ -184,7 +212,6 @@ def check_js(file):
     return False
 
 
-# Consideramos 'cargar css' como la carga de <link rel="stylesheet">
 def check_css(file):
     print("CSS... ")
 
@@ -207,7 +234,7 @@ def check_links_404(file):
     print("CHECK URLs 404... ")
 
     # file = samples.get_OK_URL()
-    file = samples.get_FAIL_URL()
+    # file = samples.get_FAIL_URL()
 
     errors = False
     for i, line in enumerate(file):
@@ -224,7 +251,7 @@ def check_links_404(file):
             if 'href=""' in match:
                 continue
 
-            # No es posible comprobar una ruta # sin saber el base_url
+            # La ruta # es sobre el html ya existente por tanto no dara 404
             if 'href="#' in match:
                 continue
 
@@ -236,6 +263,7 @@ def check_links_404(file):
             if 'href="/' in match:
                 url = "https://www.semic.es" + url
 
+            print("CHECK URLs: " + url)
             r = requests.get(url)
             status_code = r.status_code
 
@@ -279,14 +307,17 @@ if __name__ == "__main__":
         print(" BLANK in EXTERNAL ERRORS")
         errors = True
 
+    # Consideramos 'cargar js' como la carga de <script type='text/javascript'>
     if check_js(file_input_lines):
         print(" JS FAILS - ERRORS")
         errors = True
 
+    # Consideramos 'cargar css' como la carga de <link rel="stylesheet">
     if check_css(file_input_lines):
         print(" CSS FAILS - ERRORS")
         errors = True
 
+    # Long test as it checks more than 150 sites
     if check_links_404(file_input_lines):
         print(" SOME LINK IS 404 - ERRORS")
         errors = True
