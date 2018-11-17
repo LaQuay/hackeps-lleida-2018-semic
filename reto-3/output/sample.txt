@@ -1,0 +1,9 @@
+File: sample.html
+Date: 2018-11-26
+List of errors:
+Line 50: 1
+Line 55: 1
+Line 0: 3
+Line: 330: 1, 6
+Line: 859: 5 Remove old logos
+Line: 931: 5 Move this to an external JS file
