@@ -37,6 +37,19 @@ def numdivisionsbynum(N, num):
                 nd += ndi
         return nd
 
+def stack(lim, ways):
+    posi = [0] * (lim + 1)
+    posi[0] = 1
+
+    for i in ways:
+        #print(i)
+        for k in range(i, lim + 1):
+            posi[k] += posi[k - i]
+
+    return posi[lim]
+
+
+
 if __name__ == "__main__":
     f = open('input2.txt')
     N = int(f.readline().strip())
